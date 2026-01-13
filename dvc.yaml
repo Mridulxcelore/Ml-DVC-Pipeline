@@ -1,0 +1,18 @@
+stages:
+  preprocess:
+    cmd: python data_preprocessing.py data/raw/train.csv data/processed/train_processed.csv
+    deps:
+      - data/raw/train.csv
+      - data_preprocessing.py
+    outs:
+      - data/processed/train_processed.csv
+
+  train:
+    cmd: python train.py data/processed/train_processed.csv models/model.pkl
+    deps:
+      - data/processed/train_processed.csv
+      - train.py
+    params:
+      - train.n_estimators
+    outs:
+      - models/model.pkl
